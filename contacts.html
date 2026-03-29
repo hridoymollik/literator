@@ -1,289 +1,271 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"><style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
+<title>Contact Us</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
 
 body{
-  background:linear-gradient(135deg,#667eea,#764ba2);
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(190deg,#4153f4,#6166ff);
   min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
-
-  
-/* NAVBAR STYLE */
-
+/* NAVBAR (UNCHANGED STYLE) */
 .main-navbar{
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
-transition:0.3s;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.9);
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
-
-/* NAV LINKS */
 
 .nav-link{
-font-weight:500;
-margin:0 10px;
-position:relative;
+  font-weight:500;
+  margin:0 10px;
+  position:relative;
 }
 
-/* UNDERLINE HOVER EFFECT */
-
 .nav-link::after{
-content:"";
-position:absolute;
-width:0;
-height:2px;
-background:#4f46e5;
-left:0;
-bottom:0;
-transition:0.3s;
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  background:#4f46e5;
+  left:0;
+  bottom:0;
+  transition:0.3s;
 }
 
 .nav-link:hover::after{
-width:100%;
+  width:100%;
 }
-
-/* ACTIVE LINK */
 
 .nav-link.active{
-color:#4f46e5 !important;
-font-weight:600;
+  color:#4f46e5 !important;
+  font-weight:600;
 }
 
-/* BUTTON */
-
-.btn-main{
-background:#4f46e5;
-color:white;
-border:none;
-}
-
-.btn-main:hover{
-background:#4338ca;
-}
-
-
-.navbar-toggler{
-border:none;
-}
-
-.navbar-toggler-icon{
-background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,0,0,0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-
-.main-navbar{
-backdrop-filter:blur(10px);
-background:rgba(255,255,255,0.9);
-}
-
-
-
-  
-.container{
-  width:100%;
+/* NEW CONTACT DESIGN */
+.contact-wrapper{
   max-width:1000px;
-  background:#fff;
-  border-radius:30px;
-  display:flex;
-  overflow:hidden;
-  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+  margin:60px auto;
+  padding:20px;
 }
 
-.left{
-  flex:1;
-  background:linear-gradient(135deg,#6a11cb,#2575fc);
+/* GLASS CARD */
+.contact-card{
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 10px 40px rgba(89, 87, 87, 0.3);
   color:#fff;
-  padding:40px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
 }
 
-.left h2{
+/* TITLE */
+.contact-title{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.contact-title h2{
   font-size:32px;
-  margin-bottom:15px;
+  font-weight:600;
 }
 
-.left p{
-  opacity:0.9;
-  line-height:1.6;
+.contact-title p{
+  opacity:0.8;
 }
 
-.info{
-  margin-top:30px;
-}
-
-.info div{
-  margin-bottom:15px;
-}
-
-.right{
-  flex:1;
-  padding:40px;
-}
-
-.right h2{
+/* INFO BOX */
+.info-box{
+  background:rgba(255,255,255,0.15);
+  padding:20px;
+  border-radius:15px;
   margin-bottom:20px;
 }
 
-.form-group{
-  margin-bottom:15px;
-}
-
-input,textarea{
-  width:100%;
+/* FORM */
+.form-control{
+  background:rgba(255,255,255,0.2);
+  border:none;
+  color:#fff;
   padding:12px;
   border-radius:10px;
-  border:1px solid #ddd;
-  outline:none;
-  transition:0.3s;
 }
 
-input:focus,textarea:focus{
-  border-color:#6a11cb;
+.form-control::placeholder{
+  color:#ddd;
 }
 
-textarea{
-  resize:none;
-  height:120px;
+.form-control:focus{
+  box-shadow:none;
+  background:rgba(255,255,255,0.25);
 }
 
-button{
-  width:100%;
-  padding:14px;
+/* BUTTON */
+.btn-send{
+  background:#eefff5;
   border:none;
+  padding:14px;
   border-radius:10px;
-  background:linear-gradient(135deg,#6a11cb,#2575fc);
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
+  font-weight:600;
   transition:0.3s;
 }
 
-button:hover{
-  opacity:0.9;
+.btn-send:hover{
+  background:#2fff85;
 }
 
+/* GRID */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* MOBILE */
 @media(max-width:768px){
-  .container{
-    flex-direction:column;
+  .contact-grid{
+    grid-template-columns:1fr;
   }
 }
 
-</style></head><body>
-  
-  
-  
-<nav class="navbar navbar-expand-lg bg-white sticky-top main-navbar">
+</style>
+</head>
 
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg main-navbar sticky-top">
 <div class="container">
 
-<a class="navbar-brand fw-bold" href="index.html">
-EduSkill
-</a>
+<a class="navbar-brand fw-bold" href="#">EduSkill</a>
 
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
 <span class="navbar-toggler-icon"></span>
 </button>
 
-<div class="collapse navbar-collapse" id="navbarMenu">
-
+<div class="collapse navbar-collapse" id="menu">
 <ul class="navbar-nav ms-auto align-items-lg-center">
 
 <li class="nav-item">
-<a class="nav-link active" href="index.html">Home</a>
+<a class="nav-link active" href="#">Home</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="courses.html">Courses</a>
+<a class="nav-link" href="#">Courses</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="mentors.html">Mentors</a>
+<a class="nav-link" href="#">Mentors</a>
 </li>
-
-<li class="nav-item">
-<a class="nav-link" href="contacts.html">contacts</a>
-</li>
-
-
 
 </ul>
-
 </div>
 
 </div>
-
 </nav>
 
-  <div class="container">  <div class="left">
-    <h2>Let's Talk 🚀</h2>
-    <p>Have questions about our courses? Want to enroll or need help? We're here for you.</p><div class="info">
-  
-  <div>📞 +880 01575636625</div>
-  <div>🌐 https://literator.pages.dev</div>
+<!-- CONTACT -->
+<div class="contact-wrapper">
+
+<div class="contact-card">
+
+<div class="contact-title">
+<h2>Contact Us 💬</h2>
+<p>We usually reply within a few minutes on WhatsApp</p>
 </div>
 
-  </div>  <div class="right">
-    <h2>Contact Us</h2><form id="contactForm">
-  <div class="form-group">
-    <input type="text" name="name" placeholder="Your Name" required>
-  </div>
+<div class="contact-grid">
 
-  <div class="form-group">
-    <input type="email" name="email" placeholder="Your Email" required>
-  </div>
+<!-- LEFT INFO -->
+<div>
 
-  <div class="form-group">
-    <input type="text" name="course" placeholder="Course Interested In">
-  </div>
+<div class="info-box">
+<h5>📞 Phone</h5>
+<p>+880 1575636625</p>
+</div>
 
-  <div class="form-group">
-    <textarea name="message" placeholder="Your Message" required></textarea>
-  </div>
+<div class="info-box">
+<h5>🌐 Website</h5>
+<p>https://literator.pages.dev</p>
+</div>
 
-  <button type="submit">Send Message by WhatsApp</button>
+<div class="info-box">
+<h5>⏰ Support Time</h5>
+<p>10 AM - 10 PM</p>
+</div>
+
+</div>
+
+<!-- RIGHT FORM -->
+<div>
+
+<form id="contactForm">
+
+<input type="text" name="name" class="form-control mb-3" placeholder="Your Name" required>
+
+<input type="email" name="email" class="form-control mb-3" placeholder="Your Email" required>
+
+<input type="text" name="course" class="form-control mb-3" placeholder="Course Name">
+
+<textarea name="message" class="form-control mb-3" placeholder="Your Message" rows="4" required></textarea>
+
+<button class="btn btn-send w-100">Send via WhatsApp</button>
+
 </form>
 
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- JS -->
 <script>
-  const form = document.getElementById('contactForm');
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
+const form = document.getElementById('contactForm');
 
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const course = form.course.value.trim();
-    const message = form.message.value.trim();
+form.addEventListener('submit', function(e){
+  e.preventDefault();
 
-    if(!name || !email || !message){
-      alert('Please fill all required fields');
-      return;
-    }
+  const name = form.name.value.trim();
+  const email = form.email.value.trim();
+  const course = form.course.value.trim();
+  const message = form.message.value.trim();
 
-    const phoneNumber = "8801575636625"; // নিজের WhatsApp নাম্বার বসাও (country code সহ, + ছাড়া)
+  if(!name || !email || !message){
+    alert('Please fill all required fields');
+    return;
+  }
 
-    const text = `New Course Inquiry:%0A
+  const phoneNumber = "8801575636625";
 
-Name: ${name}%0A Email: ${email}%0A Course: ${course}%0A Message: ${message}`;
+  const text = `New Course Inquiry:%0A
+Name: ${name}%0A
+Email: ${email}%0A
+Course: ${course}%0A
+Message: ${message}`;
 
-const whatsappURL = `https://wa.me/${phoneNumber}?text=${text}`;
+  const url = `https://wa.me/${phoneNumber}?text=${text}`;
 
-    window.open(whatsappURL, '_blank');
+  window.open(url, '_blank');
+  form.reset();
+});
 
-    form.reset();
-  });
 </script>
 
-  </div></div></body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
 </html>
