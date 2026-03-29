@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Word Analyzer</title>
+<style>
+
+/* NAVBAR STYLE */
+
+.main-navbar{
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+/* NAV LINKS */
+
+.nav-link{
+font-weight:500;
+margin:0 10px;
+position:relative;
+}
+
+/* UNDERLINE HOVER EFFECT */
+
+.nav-link::after{
+content:"";
+position:absolute;
+width:0;
+height:2px;
+background:#4f46e5;
+left:0;
+bottom:0;
+transition:0.3s;
+}
+
+.nav-link:hover::after{
+width:100%;
+}
+
+/* ACTIVE LINK */
+
+.nav-link.active{
+color:#4f46e5 !important;
+font-weight:600;
+}
+
+/* BUTTON */
+
+.btn-main{
+background:#4f46e5;
+color:white;
+border:none;
+}
+
+.btn-main:hover{
+background:#4338ca;
+}
+
+
+.navbar-toggler{
+border:none;
+}
+
+.navbar-toggler-icon{
+background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,0,0,0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.main-navbar{
+backdrop-filter:blur(10px);
+background:rgba(255,255,255,0.9);
+}
+
+
+
+
+
+
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  padding:0;
+}
+
+textarea{
+width:100%;
+min-height:400px;
+padding:15px;
+font-size:16px;
+border-radius:10px;
+border:1px solid #ccc;
+resize:vertical;
+box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+button{
+  padding:8px 14px;
+  font-size:16px;
+  margin-top:8px;
+}
+h3{
+  margin-top:20px;
+}
+.item{
+  margin:4px 0;
+}
+
+
+
+
+</style>
+</head>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<body>
+
+
+
+<nav class="navbar navbar-expand-lg bg-white sticky-top main-navbar">
+
+<div class="container">
+
+<a class="navbar-brand fw-bold" href="index.html">
+EduSkill
+</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarMenu">
+
+<ul class="navbar-nav ms-auto align-items-lg-center">
+
+<li class="nav-item">
+<a class="nav-link active" href="index.html">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="courses.html">Courses</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="mentors.html">Mentors</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#">Word Tool</a>
+</li>
+
+
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2>Word Analyzer Tool</h2>
+
+<textarea id="inputText" placeholder="Write your text here..."></textarea>
+
+<br>
+
+<button onclick="analyze()">Analyze</button>
+
+<div id="output"></div>
+
+<script>
+// stop words
+const stopWords = new Set([
+ "a","an","the","is","am","are","was","were","be","been","being",
+ "of","to","in","on","at","for","with","by","about","as",
+ "under","over","into","from","that","this","these","those",
+ "where","one","or","and","but","if","so","because",
+ "have","has","had","do","does","did","makes","make"
+]);
+
+// pronouns to remove from common words
+const pronouns = new Set([
+ "i","you","he","she","it","we","they","me","him","her","us","them",
+ "my","your","his","her","its","our","their",
+ "mine","yours","hers","ours","theirs",
+  
+  "s","not","also","point","link",
+ "poem","writer","writers","poems","poets","only","like","use","than",
+  "then","time","people","year","way","day","man","woman","life","child",
+"world","school","state","group","country","problem","hand","part","place","week",
+"system","question","work","number","night","point","home","water","room","mother",
+"area","money","story","fact","month","lot","right","study","book","eye",
+"job","word","side","kind","head","house","friend","door","city","car",
+"face","others","level","education","power","effect","plan","interest","reason",
+"art","war","history","party","change","morning","girl","guy","moment","air",
+"teacher","force","idea","price","table","court","health","person","office",
+"relationship","city","moment",
+]);
+
+// confusing / academic words list (extendable)
+const confusingWords = new Set([
+ "detailed","description","characters","represent","deeper",
+ "concept","symbol","technique","allegory","spiritual","moral",
+ "physical","unforgettable","brightness","suffering","reinforces"
+]);
+
+function analyze(){
+  const text = document.getElementById("inputText").value;
+  let words = text
+    .replace(/[^a-zA-Z\s]/g," ")
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(w => w && !stopWords.has(w));
+
+  let freq = {};
+  words.forEach(w => freq[w] = (freq[w] || 0) + 1);
+
+  // Common words: frequency > 1 and not pronoun
+  let commonWords = Object.keys(freq)
+    .filter(w => freq[w] > 1 && !pronouns.has(w))
+    .sort((a,b) => freq[b] - freq[a]);
+
+  // Hard words: single occurrence and confusing or long
+  let hardWords = Object.keys(freq)
+    .filter(w =>
+      freq[w] === 1 &&            // not common
+      (confusingWords.has(w) || w.length >= 8)
+    );
+
+  let html = "<h3>Common words:</h3>";
+  if(commonWords.length === 0){
+    html += "<p>None</p>";
+  } else {
+    commonWords.forEach((w,i)=>{
+      html += `<div class="item">${i+1}. ${w} — ${freq[w]}</div>`;
+    });
+  }
+
+  html += "<h3>Hard spelled words:</h3>";
+  if(hardWords.length === 0){
+    html += "<p>None</p>";
+  } else {
+    hardWords.forEach((w,i)=>{
+      html += `<div class="item">${i+1}. ${w}</div>`;
+    });
+  }
+
+  document.getElementById("output").innerHTML = html;
+}
+
+
+
+
+
+</script>
+
+<!-- Bootstrap (ALWAYS LAST) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
