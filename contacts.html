@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"><style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:100%;
+  max-width:1000px;
+  background:#fff;
+  border-radius:20px;
+  display:flex;
+  overflow:hidden;
+  box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.left{
+  flex:1;
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  color:#fff;
+  padding:40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.left h2{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.left p{
+  opacity:0.9;
+  line-height:1.6;
+}
+
+.info{
+  margin-top:30px;
+}
+
+.info div{
+  margin-bottom:15px;
+}
+
+.right{
+  flex:1;
+  padding:40px;
+}
+
+.right h2{
+  margin-bottom:20px;
+}
+
+.form-group{
+  margin-bottom:15px;
+}
+
+input,textarea{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  outline:none;
+  transition:0.3s;
+}
+
+input:focus,textarea:focus{
+  border-color:#6a11cb;
+}
+
+textarea{
+  resize:none;
+  height:120px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#6a11cb,#2575fc);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+@media(max-width:768px){
+  .container{
+    flex-direction:column;
+  }
+}
+
+</style></head><body><div class="container">  <div class="left">
+    <h2>Let's Talk 🚀</h2>
+    <p>Have questions about our courses? Want to enroll or need help? We're here for you.</p><div class="info">
+  >
+  <div>📞 +880 01575636625</div>
+  <div>🌐 literator.pages.dev/</div>
+</div>
+
+  </div>  <div class="right">
+    <h2>Contact Us</h2><form id="contactForm">
+  <div class="form-group">
+    <input type="text" name="name" placeholder="Your Name" required>
+  </div>
+
+  <div class="form-group">
+    <input type="email" name="email" placeholder="Your Email" required>
+  </div>
+
+  <div class="form-group">
+    <input type="text" name="course" placeholder="Course Interested In">
+  </div>
+
+  <div class="form-group">
+    <textarea name="message" placeholder="Your Message" required></textarea>
+  </div>
+
+  <button type="submit">Send Message</button>
+</form>
+
+<script>
+  const form = document.getElementById('contactForm');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const course = form.course.value.trim();
+    const message = form.message.value.trim();
+
+    if(!name || !email || !message){
+      alert('Please fill all required fields');
+      return;
+    }
+
+    const phoneNumber = "8801575636625"; // নিজের WhatsApp নাম্বার বসাও (country code সহ, + ছাড়া)
+
+    const text = `New Course Inquiry:%0A
+
+Name: ${name}%0A Email: ${email}%0A Course: ${course}%0A Message: ${message}`;
+
+const whatsappURL = `https://wa.me/${phoneNumber}?text=${text}`;
+
+    window.open(whatsappURL, '_blank');
+
+    form.reset();
+  });
+</script>
+
+  </div></div></body>
+</html>
