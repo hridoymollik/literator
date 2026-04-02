@@ -1,32 +1,110 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Courses</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg,#1e3c72,#2a5298);
+  color:#fff;
+}
 
+/* Container */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+/* Title */
+h1{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+/* Grid */
+.courses{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+/* Card */
+.course-card{
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius:15px;
+  padding:20px;
+  text-decoration:none;
+  color:#fff;
+  transition:0.3s;
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+.course-card:hover{
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.2);
+}
+
+/* Title */
+.course-title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+/* Description */
+.course-desc{
+  font-size:14px;
+  opacity:0.9;
+}
+
+/* Mobile */
+@media(max-width:600px){
+  h1{
+    font-size:22px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container mt-5">
+<div class="container">
+  <h1>Our Courses</h1>
 
-<h1 class="text-center mb-5">All Courses</h1>
+  <div class="courses">
 
-<div class="row g-4">
+    <!-- Course 1 -->
+    <a href="course1.html" class="course-card">
+      <div class="course-title">Web Development</div>
+      <div class="course-desc">Learn HTML, CSS, JavaScript from scratch</div>
+    </a>
 
-<div class="col-md-4"><div class="card"><div class="card-body">Web Development</div></div></div>
-<div class="col-md-4"><div class="card"><div class="card-body">Data Science</div></div></div>
-<div class="col-md-4"><div class="card"><div class="card-body">Graphic Design</div></div></div>
-<div class="col-md-4"><div class="card"><div class="card-body">UI UX Design</div></div></div>
-<div class="col-md-4"><div class="card"><div class="card-body">Digital Marketing</div></div></div>
+    <!-- Course 2 -->
+    <a href="course2.html" class="course-card">
+      <div class="course-title">Graphic Design</div>
+      <div class="course-desc">Master Photoshop & Illustrator</div>
+    </a>
 
-</div>
+    <!-- Course 3 -->
+    <a href="course3.html" class="course-card">
+      <div class="course-title">Freelancing</div>
+      <div class="course-desc">Earn money from Fiverr & Upwork</div>
+    </a>
 
+    <!-- Course 4 -->
+    <a href="course4.html" class="course-card">
+      <div class="course-title">Digital Marketing</div>
+      <div class="course-desc">Facebook Ads, SEO & more</div>
+    </a>
+
+  </div>
 </div>
 
 </body>
 </html>
-```
