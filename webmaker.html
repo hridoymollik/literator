@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docs Editor </title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;font-family:'Inter',sans-serif;background:#f1f3f6}
+
+/* TOOLBAR */
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 5px rgba(0,0,0,0.1)}
+button,select,input{padding:6px;font-size:14px;cursor:pointer}
+
+/* EDITOR */
+.container-editor{display:flex;justify-content:center;padding:20px}
+.page{width:100%;max-width:800px;background:#fff;padding:40px;box-shadow:0 0 10px rgba(0,0,0,0.1);min-height:500px;outline:none}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+td{border:1px solid #ccc;padding:8px}
+</style>
+</head>
+
+<body>
+
+
+
+<button onclick="format('bold')">B</button>
+<button onclick="format('italic')">I</button>
+<button onclick="format('underline')">U</button>
+
+<button onclick="alignText('left')">Left</button>
+<button onclick="alignText('center')">Center</button>
+<button onclick="alignText('right')">Right</button>
+<button onclick="alignText('justify')">Justify</button>
+
+<input type="color" onchange="setColor(this.value)">
+
+<input type="number" id="textSize" value="16"> px
+<button onclick="setFontSize()">Size</button>
+
+<input type="text" id="backLink" placeholder="Back link (e.g. index.html or /home)">
+
+<button onclick="addTable()">Table</button>
+<button onclick="downloadHTML()">Download</button>
+</div>
+
+<!-- SINGLE LIVE EDITOR -->
+<div class="container-editor">
+<div id="editor" class="page" contenteditable="true">
+Start writing here...
+</div>
+</div>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+const editor=document.getElementById('editor');
+
+function focusEditor(){editor.focus();}
+
+function format(cmd){focusEditor();document.execCommand(cmd,false,null);}
+
+function applyHeading(tag){focusEditor();document.execCommand('formatBlock',false,tag);}
+
+function alignText(type){focusEditor();
+if(type==='justify') document.execCommand('justifyFull');
+else document.execCommand('justify'+type.charAt(0).toUpperCase()+type.slice(1));}
+
+function setColor(color){focusEditor();document.execCommand('foreColor',false,color);}
+
+function setFontSize(){focusEditor();
+const size=document.getElementById('textSize').value;
+document.execCommand('fontSize',false,7);
+const fonts=editor.getElementsByTagName('font');
+for(let i=0;i<fonts.length;i++){
+if(fonts[i].size=="7"){
+fonts[i].removeAttribute('size');
+fonts[i].style.fontSize=size+"px";
+}}}
+
+function addTable(){focusEditor();
+let rows=prompt('Rows?',2);
+let cols=prompt('Cols?',2);
+let table='<table>';
+for(let i=0;i<rows;i++){
+table+='<tr>';
+for(let j=0;j<cols;j++) table+='<td>Cell</td>';
+table+='</tr>';}
+table+='</table>';
+document.execCommand('insertHTML',false,table);
+}
+
+
+
+
+
+function downloadHTML(){
+const content = editor.innerHTML;
+const backLink = document.getElementById('backLink').value || 'index.html';
+
+const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+/* NAVBAR STYLE */
+
+.main-navbar{
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+/* NAV LINKS */
+
+.nav-link{
+font-weight:500;
+margin:0 10px;
+position:relative;
+}
+
+/* UNDERLINE HOVER EFFECT */
+
+.nav-link::after{
+content:"";
+position:absolute;
+width:0;
+height:2px;
+background:#4f46e5;
+left:0;
+bottom:0;
+transition:0.3s;
+}
+
+.nav-link:hover::after{
+width:100%;
+}
+
+/* ACTIVE LINK */
+
+.nav-link.active{
+color:#4f46e5 !important;
+font-weight:600;
+}
+
+/* BUTTON */
+
+.btn-main{
+background:#4f46e5;
+color:white;
+border:none;
+}
+
+.btn-main:hover{
+background:#4338ca;
+}
+
+
+.navbar-toggler{
+border:none;
+}
+
+.navbar-toggler-icon{
+background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,0,0,0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+
+.main-navbar{
+backdrop-filter:blur(10px);
+background:rgba(255,255,255,0.9);
+}
+
+
+
+
+
+
+
+body{
+font-family:Inter,sans-serif;
+background:#f1f3f6;
+margin:0;
+padding-top:0px; /* FIX for navbar */
+}
+
+/* PAGE */
+.page{
+
+max-width:1000px;
+margin:20px auto;
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+position:relative;
+box-sizing:border-box;
+}
+
+/* MOBILE FIX */
+@media (max-width:600px){
+.page{
+margin:20px auto;
+padding:20px;
+}
+}
+
+/* TABLE */
+table{
+border-collapse:collapse;
+width:100%;
+}
+td{
+border:1px solid #ccc;
+padding:8px;
+}
+
+/* BACK BUTTON */
+.back-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#4f46e5;
+color:#fff;
+padding:10px 16px;
+border:none;
+border-radius:50px;
+z-index:2000;
+cursor:pointer;
+box-shadow:0 4px 12px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg bg-white sticky-top main-navbar">
+
+<div class="container-fluid">
+
+<a class="navbar-brand fw-bold" href="index.html">
+EduSkill
+</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarMenu">
+
+<ul class="navbar-nav ms-auto align-items-lg-center">
+
+<li class="nav-item">
+<a class="nav-link active" href="index.html">Home</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="courses.html">Courses</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="mentors.html">Mentors</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#">Word Tool</a>
+</li>
+
+
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="page">
+  ${content}
+  
+  <button class="back-btn" onclick="goBack()">⬅ Back</button>
+  </div>
+
+<script>
+function goBack(){
+window.location.href='${backLink}';
+}
+<\/script>
+
+</body>
+</html>`;
+
+const blob = new Blob([html], {type:'text/html'});
+const a = document.createElement('a');
+a.href = URL.createObjectURL(blob);
+a.download = 'document.html';
+a.click();
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
